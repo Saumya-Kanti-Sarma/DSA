@@ -5,23 +5,44 @@ class Node:
   
   # traversing (visiting each node)
   def traverse_print(self):
-    current = self
-    while current:
+    current = self 
+    while current: 
       print(current.data, end=" -> ")
       current = current.next
     print(None)
 
-  # insert at back
+  # insert at end
   def inser_at_end(self,node):
     current = self
     while current.next:
       current = current.next
     current.next = Node(node)
   
+  # insert at beginning
   def insert_at_beginning(self,node):
     new_node = Node(node)
     new_node.next = self
     return new_node
+
+  # delete by value:
+  def delete_by_value(self,val):
+    # check if val == self.data
+    # if true delete and return
+    # else current = self:
+    if val == self.data: #val == 1
+      # [1, 2, 3, 4, 5]
+      self.data = self.next.data
+      self.next = self.next.next
+      return
+    else:
+      current = self.next
+      while current:
+        if val == current.data:
+          current.data = current.next.data
+          current.next = current.next.next
+          return
+        current = current.next
+      print("Value not found")
 
 # recursive print
 def recursive_print( node):
@@ -31,11 +52,12 @@ def recursive_print( node):
   print(node.data, end=" -> ")
   recursive_print(node.next)
 
-a = Node(10)
-a.inser_at_end(12)
-a.inser_at_end(11)
-a.inser_at_end(0)
-a.inser_at_end(12)
-new_lst = a.insert_at_beginning(20)
-recursive_print(a)
-recursive_print(new_lst)
+a = Node(1)
+a.inser_at_end(2)
+a.inser_at_end(3)
+a.inser_at_end(4)
+a.inser_at_end(5)
+
+a.traverse_print()
+a.delete_by_value(21)
+a.traverse_print()
